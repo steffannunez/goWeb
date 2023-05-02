@@ -3,10 +3,10 @@ package renders
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
-	"text/template"
 
 	"github.com/steffannunez/golangs/goWeb/pkg/config"
 	"github.com/steffannunez/golangs/goWeb/pkg/models"
@@ -107,7 +107,7 @@ func createTemplateCache(t string) error {
 func CreateTemplateCacheDos() (map[string]*template.Template, error) {
 	miCache := map[string]*template.Template{} //esto es igual que usar el make()
 	//obtener todos los files llamados *page.tmpl en la carpeta ./templates
-	pages, err := filepath.Glob("./templates/*.page.tmpl")
+	pages, err := filepath.Glob("./templates/*.page.html")
 
 	if err != nil {
 		return miCache, err
@@ -117,19 +117,20 @@ func CreateTemplateCacheDos() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 		ts, err := template.New(name).ParseFiles(page)
-
+		log.Println("debug 1")
 		if err != nil {
+			log.Println(err)
 			return miCache, err
 		}
 
-		matches, err := filepath.Glob("./templates/*.layout.tmpl")
+		matches, err := filepath.Glob("./templates/*.layout.html")
 
 		if err != nil {
 			return miCache, err
 		}
 
 		if len(matches) > 0 {
-			ts, err = ts.ParseGlob("./templates/*layout.tmpl")
+			ts, err = ts.ParseGlob("./templates/*layout.html")
 			if err != nil {
 				return miCache, err
 			}

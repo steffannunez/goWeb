@@ -1,0 +1,10 @@
+Commands
+"go mod tidy" -> para limpiar el archivo go.mod (dependencias)
+
+go get "link"  -> para importar dependencias
+
+editar el archivo settings.json de VS para poder usar multiples modulos
+
+golang nosurf dependecia es para CSRFToken
+
+go get github.com/alexedwards/scs/v2 sirve para mantener la session de un usuario 

@@ -10,6 +10,14 @@
                 <p>o si?</p>
 
                 <p>Este mensaje no se para que es {{index .StringMap "test"}} </p>
+
+                <p>
+                    {{if ne (index .StringMap "remote_ip") ""}}
+                        Tu remote_ip address is {{index .StringMap "remote_ip"}}
+                    {{else}}
+                        Aun no se tu dirección ip. Visita el <a href="/"> Inicio</a> para poder obtenerlo.
+                    {{end}}
+                </p>
             </div>
         </div>
     </div>

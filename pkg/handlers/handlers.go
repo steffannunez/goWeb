@@ -29,7 +29,9 @@ func NewHandlers(r *Repository) {
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	renders.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
+	remoteIP := r.RemoteAddr
+	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
+	renders.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 
 }
 
@@ -37,7 +39,11 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	// logica
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hola putines!"
-	renders.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{
+
+	remoteIP := m.App.Session.GetString(r.Context(), "remote_ip")
+	stringMap["remote_ip"] = remoteIP
+
+	renders.RenderTemplate(w, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
