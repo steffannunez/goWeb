@@ -46,4 +46,18 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	renders.RenderTemplate(w, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
+
+}
+
+func (m *Repository) General(w http.ResponseWriter, r *http.Request) {
+	// logica
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hola putines!"
+
+	remoteIP := m.App.Session.GetString(r.Context(), "remote_ip")
+	stringMap["remote_ip"] = remoteIP
+
+	renders.RenderTemplate(w, "general.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }

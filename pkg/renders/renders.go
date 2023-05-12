@@ -117,7 +117,6 @@ func CreateTemplateCacheDos() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 		ts, err := template.New(name).ParseFiles(page)
-		log.Println("debug 1")
 		if err != nil {
 			log.Println(err)
 			return miCache, err
